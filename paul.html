@@ -1,0 +1,2800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Vibes PH | Explore Philippines</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Styles */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 28px;
+            font-weight: 700;
+            color: #6c63ff;
+            cursor: pointer;
+        }
+
+        .logo i {
+            color: #ff6b9d;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav a {
+            color: #ddd;
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        nav a:hover, nav a.active {
+            color: #6c63ff;
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-actions button {
+            background: transparent;
+            border: 1px solid #6c63ff;
+            color: #6c63ff;
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .user-actions button:hover {
+            background: #6c63ff;
+            color: white;
+        }
+
+        .user-info {
+            display: none;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 15px;
+            background: rgba(108, 99, 255, 0.1);
+            border-radius: 20px;
+            border: 1px solid #6c63ff;
+        }
+
+        .user-info.active {
+            display: flex;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #6c63ff, #ff6b9d);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .user-name {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(to right, rgba(108, 99, 255, 0.2), rgba(255, 107, 157, 0.2));
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 600px;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, #6c63ff, #ff6b9d);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #ccc;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            background: linear-gradient(90deg, #6c63ff, #ff6b9d);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+
+        .hero-image {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 80px;
+            animation: pulse 3s infinite;
+            position: relative;
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(108, 99, 255, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(108, 99, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(108, 99, 255, 0); }
+        }
+
+        /* Travel Map Background */
+        .travel-map {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Philippines_physical_map.svg/800px-Philippines_physical_map.svg.png') center/contain no-repeat;
+            opacity: 0.1;
+            z-index: 1;
+        }
+
+        /* Content Sections */
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        .section-title {
+            font-size: 32px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: #ff6b9d;
+        }
+
+        /* Destination Grid */
+        .destination-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .destination-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            transition: transform 0.3s, background 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .destination-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .destination-card.active {
+            background: rgba(108, 99, 255, 0.2);
+            border: 1px solid #6c63ff;
+        }
+
+        .destination-image {
+            width: 100%;
+            height: 200px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .destination-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .destination-card:hover .destination-image img {
+            transform: scale(1.1);
+        }
+
+        .badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #ff6b9d;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge.popular {
+            background: #6c63ff;
+        }
+
+        .badge.hidden-gem {
+            background: #ffb347;
+        }
+
+        .badge.must-visit {
+            background: #00b894;
+        }
+
+        .badge.beach {
+            background: #00cec9;
+        }
+
+        .badge.mountain {
+            background: #a29bfe;
+        }
+
+        .destination-info h3 {
+            font-size: 20px;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+
+        .destination-info p {
+            color: #aaa;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .destination-stats {
+            display: flex;
+            justify-content: space-between;
+            color: #6c63ff;
+            font-size: 14px;
+        }
+
+        .play-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .destination-card:hover .play-icon {
+            opacity: 1;
+        }
+
+        .play-icon i {
+            color: white;
+            font-size: 18px;
+        }
+
+        /* Province Details Section */
+        .province-details {
+            margin-top: 30px;
+        }
+
+        .province-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+        }
+
+        .province-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .province-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .province-details h2 {
+            font-size: 32px;
+            margin-bottom: 5px;
+        }
+
+        .province-details p {
+            color: #aaa;
+            font-size: 16px;
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .province-stats {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            display: flex;
+            flex-direction: column;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px 15px;
+            border-radius: 10px;
+            min-width: 100px;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #6c63ff;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #aaa;
+        }
+
+        /* Travel Guides Section */
+        .guides-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .guides-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .guides-title {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .guides-count {
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        .guide-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: background 0.3s;
+            cursor: pointer;
+        }
+
+        .guide-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .guide-item:last-child {
+            border-bottom: none;
+        }
+
+        .guide-rank {
+            font-size: 24px;
+            font-weight: 700;
+            color: #6c63ff;
+            width: 40px;
+            text-align: center;
+        }
+
+        .guide-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .guide-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .guide-info {
+            flex-grow: 1;
+        }
+
+        .guide-info h4 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .guide-info p {
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        .guide-stats {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .guide-rating {
+            color: #ffd700;
+            font-size: 14px;
+        }
+
+        .guide-play-btn {
+            background: transparent;
+            border: 1px solid #6c63ff;
+            color: #6c63ff;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .guide-play-btn:hover {
+            background: #6c63ff;
+            color: white;
+        }
+
+        /* YouTube Player Modal */
+        .youtube-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+            padding: 20px;
+        }
+
+        .youtube-modal.active {
+            display: flex;
+        }
+
+        .youtube-player-container {
+            width: 90%;
+            max-width: 1000px;
+            height: 70vh;
+            background: #000;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #youtube-player {
+            width: 100%;
+            height: 100%;
+        }
+
+        .close-youtube {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            background: #ff0000;
+            border: none;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 20px;
+            z-index: 3001;
+        }
+
+        .close-youtube:hover {
+            background: #cc0000;
+        }
+
+        .video-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+
+        .youtube-player-container:hover .video-info {
+            transform: translateY(0);
+        }
+
+        .video-info h3 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .video-info p {
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        /* Travel Planner Controls */
+        .planner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+
+        .current-trip {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            width: 250px;
+        }
+
+        .current-trip img {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+        }
+
+        .trip-info h4 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .trip-info p {
+            font-size: 14px;
+            color: #aaa;
+        }
+
+        .planner-controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-grow: 1;
+        }
+
+        .control-buttons {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 10px;
+        }
+
+        .control-buttons button {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .control-buttons button:hover {
+            color: #6c63ff;
+        }
+
+        .control-buttons .plan-btn {
+            font-size: 28px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            max-width: 500px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, #6c63ff, #ff6b9d);
+            width: 30%;
+        }
+
+        .planner-extra {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            width: 250px;
+            justify-content: flex-end;
+        }
+
+        .budget-slider {
+            width: 100px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .budget-level {
+            height: 100%;
+            background: #6c63ff;
+            width: 70%;
+        }
+
+        /* Categories */
+        .categories {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            color: #ddd;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .category-btn:hover, .category-btn.active {
+            background: linear-gradient(90deg, #6c63ff, #ff6b9d);
+            color: white;
+        }
+
+        /* Account Modal */
+        .account-modal {
+            display: none;
+            position: fixed;
+            top: 70px;
+            right: 20px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            width: 300px;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            border: 1px solid rgba(108, 99, 255, 0.3);
+        }
+
+        .account-modal.active {
+            display: block;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .account-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .account-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #6c63ff, #ff6b9d);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .account-details h3 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .account-details p {
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        .account-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .account-stat {
+            text-align: center;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        .account-stat-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: #6c63ff;
+        }
+
+        .account-stat-label {
+            font-size: 12px;
+            color: #aaa;
+        }
+
+        .account-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .account-btn {
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            background: rgba(108, 99, 255, 0.1);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .account-btn:hover {
+            background: rgba(108, 99, 255, 0.3);
+        }
+
+        .account-btn.logout {
+            background: rgba(255, 107, 157, 0.1);
+        }
+
+        .account-btn.logout:hover {
+            background: rgba(255, 107, 157, 0.3);
+        }
+
+        /* Sign In Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .signin-modal {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            width: 90%;
+            max-width: 450px;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            position: relative;
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: transparent;
+            border: none;
+            color: #aaa;
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-modal:hover {
+            color: #ff6b9d;
+        }
+
+        .modal-logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            font-size: 32px;
+            font-weight: 700;
+            color: #6c63ff;
+            margin-bottom: 30px;
+        }
+
+        .modal-logo i {
+            color: #ff6b9d;
+        }
+
+        .modal-title {
+            font-size: 28px;
+            text-align: center;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #6c63ff, #ff6b9d);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .modal-subtitle {
+            text-align: center;
+            color: #aaa;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #ddd;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #6c63ff;
+            box-shadow: 0 0 0 2px rgba(108, 99, 255, 0.2);
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .remember-me input {
+            width: 16px;
+            height: 16px;
+        }
+
+        .forgot-password {
+            color: #6c63ff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .forgot-password:hover {
+            color: #ff6b9d;
+        }
+
+        .modal-button {
+            width: 100%;
+            background: linear-gradient(90deg, #6c63ff, #ff6b9d);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s;
+            margin-bottom: 20px;
+        }
+
+        .modal-button:hover {
+            transform: scale(1.02);
+        }
+
+        .divider {
+            text-align: center;
+            position: relative;
+            margin: 25px 0;
+            color: #aaa;
+        }
+
+        .divider::before, .divider::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 42%;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .divider::before {
+            left: 0;
+        }
+
+        .divider::after {
+            right: 0;
+        }
+
+        .social-login {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .social-btn.google:hover {
+            background: #DB4437;
+            border-color: #DB4437;
+        }
+
+        .social-btn.facebook:hover {
+            background: #4267B2;
+            border-color: #4267B2;
+        }
+
+        .signup-link {
+            text-align: center;
+            color: #aaa;
+        }
+
+        .signup-link a {
+            color: #6c63ff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .signup-link a:hover {
+            color: #ff6b9d;
+        }
+
+        /* New: Travel Packages Section */
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .package-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .package-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .package-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .package-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .package-content {
+            padding: 20px;
+        }
+
+        .package-content h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .package-content p {
+            color: #aaa;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .package-price {
+            font-size: 24px;
+            font-weight: 700;
+            color: #6c63ff;
+            margin-bottom: 15px;
+        }
+
+        .package-features {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .package-feature {
+            background: rgba(108, 99, 255, 0.1);
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            color: #6c63ff;
+        }
+
+        /* New: Travel Tips Section */
+        .tips-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .tip-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            transition: transform 0.3s;
+        }
+
+        .tip-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .tip-icon {
+            font-size: 40px;
+            color: #6c63ff;
+            margin-bottom: 15px;
+        }
+
+        .tip-card h4 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .tip-card p {
+            color: #aaa;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .hero-image {
+                margin-top: 30px;
+                width: 250px;
+                height: 250px;
+                font-size: 60px;
+            }
+            
+            .destination-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .youtube-player-container {
+                height: 50vh;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .section-title {
+                font-size: 28px;
+            }
+            
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .planner {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px;
+            }
+            
+            .current-trip, .planner-extra {
+                width: 100%;
+            }
+            
+            .planner-controls {
+                width: 100%;
+            }
+            
+            .account-modal {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 90%;
+                max-width: 350px;
+            }
+            
+            .youtube-player-container {
+                height: 40vh;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .destination-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .province-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .guide-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            
+            .guide-stats {
+                justify-content: center;
+            }
+            
+            .youtube-player-container {
+                height: 30vh;
+            }
+            
+            .categories {
+                justify-content: center;
+            }
+            
+            .category-btn {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="logo" id="homeLogo">
+                <i class="fas fa-plane"></i>
+                <span>TravelVibes PH</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active" data-section="home">Home</a></li>
+                    <li><a href="#" data-section="destinations">Destinations</a></li>
+                    <li><a href="#" data-section="packages">Travel Packages</a></li>
+                    <li><a href="#" data-section="guides">Travel Guides</a></li>
+                    <li><a href="#" data-section="tips">Travel Tips</a></li>
+                </ul>
+            </nav>
+            <div class="user-actions">
+                <div class="user-info" id="userInfo">
+                    <div class="user-avatar" id="userAvatar">T</div>
+                    <div class="user-name" id="userName">Traveler</div>
+                </div>
+                <button id="myAccountBtn">My Account</button>
+                <button id="signInBtn">Sign In</button>
+                <button id="signUpBtn">Sign Up</button>
+            </div>
+        </header>
+
+        <!-- Account Modal -->
+        <div class="account-modal" id="accountModal">
+            <div class="account-header">
+                <div class="account-avatar" id="accountAvatar">T</div>
+                <div class="account-details">
+                    <h3 id="accountName">Travel Explorer</h3>
+                    <p id="accountEmail">traveler@example.com</p>
+                </div>
+            </div>
+            
+            <div class="account-stats">
+                <div class="account-stat">
+                    <div class="account-stat-value" id="tripsPlanned">5</div>
+                    <div class="account-stat-label">Trips Planned</div>
+                </div>
+                <div class="account-stat">
+                    <div class="account-stat-value" id="destinationsVisited">12</div>
+                    <div class="account-stat-label">Destinations</div>
+                </div>
+                <div class="account-stat">
+                    <div class="account-stat-value" id="travelDays">156</div>
+                    <div class="account-stat-label">Travel Days</div>
+                </div>
+                <div class="account-stat">
+                    <div class="account-stat-value" id="photosTaken">850</div>
+                    <div class="account-stat-label">Photos</div>
+                </div>
+            </div>
+            
+            <div class="account-actions">
+                <button class="account-btn" id="profileBtn">
+                    <i class="fas fa-user"></i> Profile
+                </button>
+                <button class="account-btn" id="subscriptionBtn">
+                    <i class="fas fa-crown"></i> Premium
+                </button>
+                <button class="account-btn" id="settingsBtn">
+                    <i class="fas fa-cog"></i> Settings
+                </button>
+                <button class="account-btn logout" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> Log Out
+                </button>
+            </div>
+        </div>
+
+        <!-- Home Section -->
+        <section id="home" class="content-section active">
+            <div class="hero">
+                <div class="travel-map"></div>
+                <div class="hero-content">
+                    <h1>Discover the Philippines</h1>
+                    <p>Explore 7,641 islands of breathtaking beaches, majestic mountains, vibrant cities, and rich culture. Your adventure in paradise starts here!</p>
+                    <button class="cta-button" id="startExploring">Start Your Journey</button>
+                </div>
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1528164344705-47542687000d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Philippines Beach">
+                </div>
+            </div>
+
+            <!-- Categories -->
+            <div class="categories">
+                <button class="category-btn active" data-category="all">All Destinations</button>
+                <button class="category-btn" data-category="beach">Beaches</button>
+                <button class="category-btn" data-category="mountain">Mountains</button>
+                <button class="category-btn" data-category="city">Cities</button>
+                <button class="category-btn" data-category="culture">Culture</button>
+                <button class="category-btn" data-category="adventure">Adventure</button>
+            </div>
+
+            <!-- Popular Destinations -->
+            <div class="popular-destinations">
+                <h2 class="section-title"><i class="fas fa-fire"></i> Popular Destinations</h2>
+                <div class="destination-grid" id="popularDestinationsGrid">
+                    <!-- Popular destinations will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- New Discoveries Section -->
+            <div class="new-discoveries">
+                <h2 class="section-title"><i class="fas fa-compass"></i> Hidden Gems</h2>
+                <div class="destination-grid" id="hiddenGemsGrid">
+                    <!-- Hidden gems will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Must Visit Section -->
+            <div class="must-visit">
+                <h2 class="section-title"><i class="fas fa-star"></i> Must-Visit Spots</h2>
+                <div class="destination-grid" id="mustVisitGrid">
+                    <!-- Must visit spots will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Destinations Section -->
+        <section id="destinations" class="content-section">
+            <h2 class="section-title"><i class="fas fa-map-marked-alt"></i> Destinations</h2>
+            <div class="categories">
+                <button class="category-btn active" data-category="all">All Destinations</button>
+                <button class="category-btn" data-category="beach">Beaches</button>
+                <button class="category-btn" data-category="mountain">Mountains</button>
+                <button class="category-btn" data-category="city">Cities</button>
+                <button class="category-btn" data-category="culture">Culture</button>
+                <button class="category-btn" data-category="adventure">Adventure</button>
+            </div>
+            <div class="destination-grid" id="allDestinationsGrid">
+                <!-- All destinations will be populated by JavaScript -->
+            </div>
+            
+            <!-- Province Details Section (hidden by default) -->
+            <div id="provinceDetails" style="display: none;">
+                <!-- Province details and spots will be loaded here -->
+            </div>
+        </section>
+
+        <!-- Travel Packages Section -->
+        <section id="packages" class="content-section">
+            <h2 class="section-title"><i class="fas fa-suitcase-rolling"></i> Travel Packages</h2>
+            <div class="categories">
+                <button class="category-btn active" data-category="all">All Packages</button>
+                <button class="category-btn" data-category="budget">Budget</button>
+                <button class="category-btn" data-category="luxury">Luxury</button>
+                <button class="category-btn" data-category="family">Family</button>
+                <button class="category-btn" data-category="adventure">Adventure</button>
+            </div>
+            <div class="packages-grid" id="packagesGrid">
+                <!-- Travel packages will be populated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Travel Guides Section -->
+        <section id="guides" class="content-section">
+            <h2 class="section-title"><i class="fas fa-map-signs"></i> Travel Guides</h2>
+            
+            <!-- Top Guides -->
+            <div class="guides-container">
+                <div class="guides-header">
+                    <div class="guides-title">Top Travel Guides</div>
+                    <div class="guides-count">Updated: This Month</div>
+                </div>
+                <div class="guides-list" id="topGuides">
+                    <!-- Top guides will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- City Guides -->
+            <div class="guides-container">
+                <div class="guides-header">
+                    <div class="guides-title">City Guides</div>
+                    <div class="guides-count">Major Cities</div>
+                </div>
+                <div class="guides-list" id="cityGuides">
+                    <!-- City guides will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Island Guides -->
+            <div class="guides-container">
+                <div class="guides-header">
+                    <div class="guides-title">Island Guides</div>
+                    <div class="guides-count">Best Islands</div>
+                </div>
+                <div class="guides-list" id="islandGuides">
+                    <!-- Island guides will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Travel Tips Section -->
+        <section id="tips" class="content-section">
+            <h2 class="section-title"><i class="fas fa-lightbulb"></i> Travel Tips</h2>
+            <div class="categories">
+                <button class="category-btn active" data-category="all">All Tips</button>
+                <button class="category-btn" data-category="planning">Planning</button>
+                <button class="category-btn" data-category="budget">Budget</button>
+                <button class="category-btn" data-category="safety">Safety</button>
+                <button class="category-btn" data-category="culture">Culture</button>
+            </div>
+            <div class="tips-container" id="tipsGrid">
+                <!-- Travel tips will be populated by JavaScript -->
+            </div>
+        </section>
+    </div>
+
+    <!-- YouTube Player Modal -->
+    <div class="youtube-modal" id="youtubeModal">
+        <div class="youtube-player-container">
+            <button class="close-youtube" id="closeYoutube">&times;</button>
+            <div id="youtube-player"></div>
+            <div class="video-info">
+                <h3 id="videoTitle">Video Title</h3>
+                <p id="videoLocation">Location Name</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sign In Modal -->
+    <div class="modal-overlay" id="signinModal">
+        <div class="signin-modal">
+            <button class="close-modal" id="closeModal">&times;</button>
+            
+            <div class="modal-logo">
+                <i class="fas fa-plane"></i>
+                <span>TravelVibes PH</span>
+            </div>
+            
+            <h2 class="modal-title">Welcome Traveler</h2>
+            <p class="modal-subtitle">Sign in to plan your next adventure</p>
+            
+            <form id="signinForm">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="Enter your email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter your password" required>
+                </div>
+          
+                <div class="form-options">
+                    <div class="remember-me">
+                        <input type="checkbox" id="remember">
+                        <label for="remember">Remember me</label>
+                    </div>
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                </div>
+                
+                <button type="submit" class="modal-button">Sign In</button>
+                
+                <div class="divider">Or continue with</div>
+                
+                <div class="social-login">
+                    <button type="button" class="social-btn google">
+                        <i class="fab fa-google"></i>
+                        Sign in with Google
+                    </button>
+                    <button type="button" class="social-btn facebook">
+                        <i class="fab fa-facebook-f"></i>
+                        Sign in with Facebook
+                    </button>
+                </div>
+                
+                <div class="signup-link">
+                    Don't have an account? <a href="#" id="switchToSignup">Sign Up</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Travel Planner -->
+    <div class="planner">
+        <div class="current-trip">
+            <img id="currentDestinationImage" src="https://images.unsplash.com/photo-1528164344705-47542687000d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Destination">
+            <div class="trip-info">
+                <h4 id="currentDestination">Boracay Island</h4>
+                <p id="currentProvince">Aklan, Philippines</p>
+            </div>
+        </div>
+        
+        <div class="planner-controls">
+            <div class="control-buttons">
+                <button id="shareTripBtn"><i class="fas fa-share-alt"></i></button>
+                <button id="prevDestinationBtn"><i class="fas fa-chevron-left"></i></button>
+                <button class="plan-btn" id="planTripBtn"><i class="fas fa-plus" id="planIcon"></i></button>
+                <button id="nextDestinationBtn"><i class="fas fa-chevron-right"></i></button>
+                <button id="saveTripBtn"><i class="fas fa-bookmark"></i></button>
+            </div>
+            <div class="progress-bar" id="progressBar">
+                <div class="progress" id="progress"></div>
+            </div>
+        </div>
+        
+        <div class="planner-extra">
+            <div class="budget">
+                <i class="fas fa-peso-sign"></i>
+                <div class="budget-slider" id="budgetSlider">
+                    <div class="budget-level" id="budgetLevel"></div>
+                </div>
+            </div>
+            <button id="watchVideo"><i class="fab fa-youtube"></i> Watch</button>
+        </div>
+    </div>
+
+    <!-- YouTube IFrame API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+    
+    <script>
+        // ==============================
+        // TRAVEL DESTINATION DATABASE
+        // All destinations have real YouTube travel video IDs
+        // ==============================
+
+        // Popular Destinations
+        const popularDestinations = [
+            {
+                id: 1,
+                name: "Boracay Island",
+                province: "Aklan",
+                type: "beach",
+                description: "World-famous white sand beach with crystal clear waters",
+                rating: "4.8",
+                visitors: "2M/year",
+                image: "https://images.unsplash.com/photo-1528164344705-47542687000d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+                youtubeId: "T9kDDsu8_9s",
+                badge: "must-visit",
+                bestTime: "Nov-Apr",
+                budget: "₱8,000-15,000",
+                highlights: ["White Beach", "Puka Shell Beach", "Sunset Sailing"]
+            },
+            {
+                id: 2,
+                name: "Palawan",
+                province: "Palawan",
+                type: "beach",
+                description: "Last ecological frontier with stunning lagoons and islands",
+                rating: "4.9",
+                visitors: "1.5M/year",
+                image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+                youtubeId: "p8Awc3OkD9E",
+                badge: "must-visit",
+                bestTime: "Nov-May",
+                budget: "₱10,000-20,000",
+                highlights: ["El Nido", "Coron", "Underground River"]
+            },
+            {
+                id: 3,
+                name: "Banaue Rice Terraces",
+                province: "Ifugao",
+                type: "mountain",
+                description: "2,000-year-old mountainside rice terraces",
+                rating: "4.7",
+                visitors: "500K/year",
+                image: "https://images.unsplash.com/photo-1523480717984-24cba35ae1eb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+                youtubeId: "p8Awc3OkD9E",
+                badge: "popular",
+                bestTime: "Mar-May",
+                budget: "₱5,000-10,000",
+                highlights: ["Batad Terraces", "Viewpoint", "Cultural Village"]
+            },
+            {
+                name: "Siargao Island",
+                province: "Surigao del Norte",
+                type: "beach",
+                description: "Surfing capital with coconut palm-lined roads",
+                rating: "4.8",
+                visitors: "800K/year",
+                image: "https://images.unsplash.com/photo-1552465011-b4e30bf7349d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+                youtubeId:"p8Awc3OkD9E",
+                badge: "popular",
+                bestTime: "Mar-Oct",
+                budget: "₱7,000-12,000",
+                highlights: ["Cloud 9", "Magpupungko Tidal Pools", "Sohoton Cove"]
+            }
+        ];
+
+        // Hidden Gems
+        const hiddenGems = [
+            {
+                id: 5,
+                name: "Siquijor Island",
+                province: "Siquijor",
+                type: "beach",
+                description: "Mystical island known for waterfalls and white sand",
+                rating: "4.6",
+                visitors: "300K/year",
+                image: "https://images.unsplash.com/photo-1536152471326-642d74f4a31c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+                youtubeId: "Rht8rS4cR1s",
+                badge: "hidden-gem",
+                bestTime: "Dec-May",
+                budget: "₱6,000-10,000",
+                highlights: ["Cambugahay Falls", "Salagdoong Beach", "Enchanted Balete Tree"]
+            },
+            {
+                id: 6,
+                name: "Sagada",
+                province: "Mountain Province",
+                type: "mountain",
+                description: "Mountain town famous for hanging coffins and caves",
+                rating: "4.7",
+                visitors: "400K/year",
+                image: "https://images.unsplash.com/photo-1548013146-72479768bada?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+                youtubeId: "WW7EFEJUUlE",
+                badge: "hidden-gem",
+                bestTime: "Nov-Apr",
+                budget: "₱5,000-8,000",
+                highlights: ["Hanging Coffins", "Sumaguing Cave", "Echo Valley"]
+            },
+            {
+                id: 7,
+                name: "Batanes",
+                province: "Batanes",
+                type: "culture",
+                description: "Northernmost province with stunning landscapes",
+                rating: "4.9",
+                visitors: "200K/year",
+                image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+                youtubeId: "DLPmi48O51s",
+                badge: "hidden-gem",
+                bestTime: "Mar-Jun",
+                budget: "₱15,000-25,000",
+                highlights: ["Marlboro Hills", "Sabtang Island", "Honesty Coffee Shop"]
+            },
+            {
+                id: 8,
+                name: "Camiguin Island",
+                province: "Camiguin",
+                type: "beach",
+                description: "Island born of fire with natural hot springs",
+                rating: "4.5",
+                visitors: "350K/year",
+                image: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+                youtubeId: "2V5WrGVkaRQ",
+                badge: "hidden-gem",
+                bestTime: "Mar-Jun",
+                budget: "₱7,000-12,000",
+                highlights: ["White Island", "Katibawasan Falls", "Sunken Cemetery"]
+            }
+        ];
+
+        // Must-Visit Spots
+        const mustVisitSpots = [
+            {
+                id: 9,
+                name: "Chocolate Hills",
+                province: "Bohol",
+                type: "mountain",
+                description: "1,268 perfectly cone-shaped hills",
+                rating: "4.8",
+                visitors: "1.2M/year",
+                image: "https://images.unsplash.com/photo-1559131397-f94da358a9f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+                youtubeId: "sKa8HtWgOxk",
+                badge: "must-visit",
+                bestTime: "Nov-May",
+                budget: "₱6,000-10,000",
+                highlights: ["Viewpoint", "Tarsier Sanctuary", "Loboc River Cruise"]
+            },
+            {
+                id: 10,
+                name: "Mayon Volcano",
+                province: "Albay",
+                type: "mountain",
+                description: "World's most perfect cone volcano",
+                rating: "4.7",
+                visitors: "900K/year",
+                image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+                youtubeId: "65ZgTfT-YCo",
+                badge: "must-visit",
+                bestTime: "Mar-May",
+                budget: "₱7,000-12,000",
+                highlights: ["Cagsawa Ruins", "Lignon Hill", "Sumlang Lake"]
+            },
+            {
+                id: 11,
+                name: "Intramuros",
+                province: "Manila",
+                type: "culture",
+                description: "Walled city with Spanish colonial architecture",
+                rating: "4.6",
+                visitors: "1.8M/year",
+                image: "https://images.unsplash.com/photo-1559131397-f94da358a9f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+                youtubeId: "_hz9YVQlRvo",
+                badge: "must-visit",
+                bestTime: "Nov-Feb",
+                budget: "₱2,000-5,000",
+                highlights: ["Fort Santiago", "San Agustin Church", "Bamboo Bike Tour"]
+            },
+            {
+                id: 12,
+                name: "Kawasan Falls",
+                province: "Cebu",
+                type: "adventure",
+                description: "Three-stage waterfalls with turquoise waters",
+                rating: "4.8",
+                visitors: "600K/year",
+                image: "https://images.unsplash.com/photo-1536152471326-642d74f4a31c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+                youtubeId: "VZZA_38RUBI",
+                badge: "must-visit",
+                bestTime: "Dec-May",
+                budget: "₱5,000-8,000",
+                highlights: ["Canyoneering", "Waterfall Jumping", "Swimming Lagoons"]
+            }
+        ];
+
+        // All destinations combined
+        const allDestinations = [...popularDestinations, ...hiddenGems, ...mustVisitSpots];
+
+        // Provinces Database with their destinations
+        const provinces = [
+            {
+                id: 1,
+                name: "Palawan",
+                region: "MIMAROPA",
+                islandGroup: "Luzon",
+                destinations: 25,
+                tourists: "1.8M/year",
+                bestTime: "Nov-May",
+                image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+                description: "Known as the Philippines' Last Frontier, Palawan is an archipelago of over 1,700 islands with stunning natural beauty.",
+                highlights: [
+                    { name: "El Nido", type: "beach", youtubeId: "LXb3EKWsInQ" },
+                    { name: "Coron", type: "beach", youtubeId: "T9kDDsu8_9s" },
+                    { name: "Puerto Princesa", type: "city", youtubeId: "FRTvF-OR4M4" },
+                    { name: "Underground River", type: "nature", youtubeId: "Rht8rS4cR1s" }
+                ]
+            },
+            {
+                id: 2,
+                name: "Cebu",
+                region: "Central Visayas",
+                islandGroup: "Visayas",
+                destinations: 35,
+                tourists: "2.5M/year",
+                bestTime: "Dec-May",
+                image: "https://images.unsplash.com/photo-1552465011-b4e30bf7349d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+                description: "The Queen City of the South with rich history, beautiful beaches, and vibrant city life.",
+                highlights: [
+                    { name: "Cebu City", type: "city", youtubeId: "WW7EFEJUUlE" },
+                    { name: "Kawasan Falls", type: "waterfall", youtubeId: "VZZA_38RUBI" },
+                    { name: "Oslob Whale Sharks", type: "wildlife", youtubeId: "DLPmi48O51s" },
+                    { name: "Bantayan Island", type: "beach", youtubeId: "sKa8HtWgOxk" }
+                ]
+            },
+            {
+                id: 3,
+                name: "Bohol",
+                region: "Central Visayas",
+                islandGroup: "Visayas",
+                destinations: 18,
+                tourists: "900K/year",
+                bestTime: "Nov-May",
+                image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+                description: "Famous for the Chocolate Hills and the world's smallest primate, the tarsier.",
+                highlights: [
+                    { name: "Chocolate Hills", type: "nature", youtubeId: "65ZgTfT-YCo" },
+                    { name: "Panglao Island", type: "beach", youtubeId: "_hz9YVQlRvo" },
+                    { name: "Tarsier Sanctuary", type: "wildlife", youtubeId: "2V5WrGVkaRQ" },
+                    { name: "Loboc River", type: "nature", youtubeId: "u5U7jYvQkGQ" }
+                ]
+            },
+            {
+                id: 4,
+                name: "Batanes",
+                region: "Cagayan Valley",
+                islandGroup: "Luzon",
+                destinations: 12,
+                tourists: "200K/year",
+                bestTime: "Mar-Jun",
+                image: "https://images.unsplash.com/photo-1528164344705-47542687000d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+                description: "The northernmost province with rolling hills, stone houses, and strong Ivatan culture.",
+                highlights: [
+                    { name: "Marlboro Hills", type: "mountain", youtubeId: "LXb3EKWsInQ" },
+                    { name: "Sabtang Island", type: "island", youtubeId: "T9kDDsu8_9s" },
+                    { name: "Basco Lighthouse", type: "landmark", youtubeId: "FRTvF-OR4M4" },
+                    { name: "Honesty Store", type: "culture", youtubeId: "Rht8rS4cR1s" }
+                ]
+            },
+            {
+                id: 5,
+                name: "Siargao",
+                region: "Caraga",
+                islandGroup: "Mindanao",
+                destinations: 15,
+                tourists: "800K/year",
+                bestTime: "Mar-Oct",
+                image: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+                description: "Surfing capital of the Philippines with coconut palm-lined roads and island hopping.",
+                highlights: [
+                    { name: "Cloud 9", type: "beach", youtubeId: "WW7EFEJUUlE" },
+                    { name: "Magpupungko Tidal Pools", type: "nature", youtubeId: "DLPmi48O51s" },
+                    { name: "Sohoton Cove", type: "lagoon", youtubeId: "sKa8HtWgOxk" },
+                    { name: "Guyam Island", type: "island", youtubeId: "65ZgTfT-YCo" }
+                ]
+            }
+        ];
+
+        // Travel Packages
+        const travelPackages = [
+            {
+                id: 1,
+                name: "Palawan Island Hopper",
+                duration: "5D4N",
+                price: "₱15,999",
+                type: "luxury",
+                destinations: ["El Nido", "Coron", "Port Barton"],
+                image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+                features: ["Island Hopping", "Hotel Accommodation", "Airport Transfer", "Meals"]
+            },
+            {
+                id: 2,
+                name: "Bohol Adventure Package",
+                duration: "4D3N",
+                price: "₱8,499",
+                type: "budget",
+                destinations: ["Chocolate Hills", "Panglao", "Loboc River"],
+                image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+                features: ["Tours", "Accommodation", "Breakfast", "Transportation"]
+            },
+            {
+                id: 3,
+                name: "Family Boracay Escape",
+                duration: "5D4N",
+                price: "₱22,999",
+                type: "family",
+                destinations: ["White Beach", "Puka Beach", "D'Mall"],
+                image: "https://images.unsplash.com/photo-1528164344705-47542687000d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+                features: ["Family Room", "All Meals", "Activities", "Airport Transfer"]
+            },
+            {
+                id: 4,
+                name: "Siargao Surf Camp",
+                duration: "7D6N",
+                price: "₱12,500",
+                type: "adventure",
+                destinations: ["Cloud 9", "General Luna", "Daku Island"],
+                image: "https://images.unsplash.com/photo-1552465011-b4e30bf7349d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+                features: ["Surf Lessons", "Accommodation", "Island Hopping", "Meals"]
+            },
+            {
+                id: 5,
+                name: "Batanes Cultural Tour",
+                duration: "6D5N",
+                price: "₱28,500",
+                type: "luxury",
+                destinations: ["Basco", "Sabtang", "Itbayat"],
+                image: "https://images.unsplash.com/photo-1523480717984-24cba35ae1eb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+                features: ["Full Board", "All Tours", "Local Guide", "Flights"]
+            },
+            {
+                id: 6,
+                name: "Cebu Whale Shark Encounter",
+                duration: "4D3N",
+                price: "₱6,999",
+                type: "budget",
+                destinations: ["Oslob", "Kawasan Falls", "Cebu City"],
+                image: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+                features: ["Whale Shark Tour", "Accommodation", "Breakfast", "Transport"]
+            }
+        ];
+
+        // Travel Guides
+        const topGuides = [
+            { rank: 1, name: "Manila Travel Guide", author: "TravelVibes PH", rating: "4.9", youtubeId: "u5U7jYvQkGQ" },
+            { rank: 2, name: "Cebu Complete Guide", author: "Philippine Travel", rating: "4.8", youtubeId: "FRTvF-OR4M4" },
+            { rank: 3, name: "Palawan on a Budget", author: "Budget Travel PH", rating: "4.7", youtubeId: "Rht8rS4cR1s" },
+            { rank: 4, name: "Boracay First Timer", author: "Beach Lovers", rating: "4.9", youtubeId: "WW7EFEJUUlE" },
+            { rank: 5, name: "Siargao Surf Guide", author: "Surf PH", rating: "4.8", youtubeId: "DLPmi48O51s" }
+        ];
+
+        const cityGuides = [
+            { rank: 1, name: "Manila Hidden Gems", author: "City Explorer", rating: "4.7", youtubeId: "sKa8HtWgOxk" },
+            { rank: 2, name: "Cebu City Food Tour", author: "Foodie Travel", rating: "4.9", youtubeId: "65ZgTfT-YCo" },
+            { rank: 3, name: "Davao City Guide", author: "Mindanao Travel", rating: "4.6", youtubeId: "_hz9YVQlRvo" },
+            { rank: 4, name: "Baguio Cool Spots", author: "Mountain Life", rating: "4.8", youtubeId: "2V5WrGVkaRQ" },
+            { rank: 5, name: "Iloilo Heritage Tour", author: "Culture PH", rating: "4.7", youtubeId: "LXb3EKWsInQ" }
+        ];
+
+        const islandGuides = [
+            { rank: 1, name: "Palawan Island Hopping", author: "Island Life", rating: "4.9", youtubeId: "T9kDDsu8_9s" },
+            { rank: 2, name: "Siargao Island Guide", author: "Surf Paradise", rating: "4.8", youtubeId: "VZZA_38RUBI" },
+            { rank: 3, name: "Bohol-Panglao Guide", author: "Nature Lovers", rating: "4.7", youtubeId: "FRTvF-OR4M4" },
+            { rank: 4, name: "Camiguin Complete Guide", author: "Volcano Island", rating: "4.6", youtubeId: "WW7EFEJUUlE" },
+            { rank: 5, name: "Southern Leyte", author: "Hidden Gems", rating: "4.8", youtubeId: "p8Awc3OkD9E" }
+        ];
+
+        // Travel Tips
+        const travelTips = [
+            {
+                id: 1,
+                title: "Best Time to Visit Philippines",
+                category: "planning",
+                icon: "fas fa-calendar-alt",
+                content: "The dry season (November to April) is ideal. Avoid typhoon season (June to October)."
+            },
+            {
+                id: 2,
+                title: "Budget Travel Tips",
+                category: "budget",
+                icon: "fas fa-money-bill-wave",
+                content: "Travel during off-peak season, eat at local eateries, use public transportation."
+            },
+            {
+                id: 3,
+                title: "Safety in the Philippines",
+                category: "safety",
+                icon: "fas fa-shield-alt",
+                content: "Keep valuables secure, be aware of surroundings, follow local advice."
+            },
+            {
+                id: 4,
+                title: "Cultural Etiquette",
+                category: "culture",
+                icon: "fas fa-hands-helping",
+                content: "Respect elders, remove shoes when entering homes, dress modestly in churches."
+            },
+            {
+                id: 5,
+                title: "Transportation Tips",
+                category: "planning",
+                icon: "fas fa-bus",
+                content: "Use ride-hailing apps in cities, negotiate tricycle fares, book ferries in advance."
+            },
+            {
+                id: 6,
+                title: "Local Food Must-Tries",
+                category: "culture",
+                icon: "fas fa-utensils",
+                content: "Try adobo, sinigang, lechon, halo-halo, and fresh seafood."
+            },
+            {
+                id: 7,
+                title: "Packing Essentials",
+                category: "planning",
+                icon: "fas fa-suitcase",
+                content: "Light clothing, swimwear, sunscreen, insect repellent, power adapter."
+            },
+            {
+                id: 8,
+                title: "Internet and SIM Cards",
+                category: "planning",
+                icon: "fas fa-wifi",
+                content: "Get a local SIM at the airport. Globe and Smart have good coverage."
+            }
+        ];
+
+        // ==============================
+        // USER MANAGEMENT SYSTEM
+        // ==============================
+        let currentUser = null;
+        const defaultUser = {
+            name: "Travel Explorer",
+            email: "traveler@travelvibes.com",
+            avatar: "T",
+            tripsPlanned: 5,
+            destinationsVisited: 12,
+            travelDays: 156,
+            photosTaken: 850,
+            joined: "2024-01-15"
+        };
+
+        // ==============================
+        // GLOBAL VARIABLES
+        // ==============================
+        let currentDestination = popularDestinations[0];
+        let currentSection = 'home';
+        let currentCategory = 'all';
+        let player;
+        let isPlaying = false;
+        let currentDestinationIndex = 0;
+        let currentDestinationList = [...popularDestinations];
+        let currentProvince = null;
+
+        // ==============================
+        // DOM ELEMENTS
+        // ==============================
+        const signinModal = document.getElementById('signinModal');
+        const signInBtn = document.getElementById('signInBtn');
+        const signUpBtn = document.getElementById('signUpBtn');
+        const myAccountBtn = document.getElementById('myAccountBtn');
+        const closeModal = document.getElementById('closeModal');
+        const switchToSignup = document.getElementById('switchToSignup');
+        const signinForm = document.getElementById('signinForm');
+        const watchVideoBtn = document.getElementById('watchVideo');
+        const navLinks = document.querySelectorAll('nav a');
+        const contentSections = document.querySelectorAll('.content-section');
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        const youtubeModal = document.getElementById('youtubeModal');
+        const closeYoutube = document.getElementById('closeYoutube');
+        const videoTitle = document.getElementById('videoTitle');
+        const videoLocation = document.getElementById('videoLocation');
+        const planTripBtn = document.getElementById('planTripBtn');
+        const prevDestinationBtn = document.getElementById('prevDestinationBtn');
+        const nextDestinationBtn = document.getElementById('nextDestinationBtn');
+        const shareTripBtn = document.getElementById('shareTripBtn');
+        const saveTripBtn = document.getElementById('saveTripBtn');
+        const progressBar = document.getElementById('progressBar');
+        const progress = document.getElementById('progress');
+        const budgetSlider = document.getElementById('budgetSlider');
+        const budgetLevel = document.getElementById('budgetLevel');
+        const accountModal = document.getElementById('accountModal');
+        const userInfo = document.getElementById('userInfo');
+        const userAvatar = document.getElementById('userAvatar');
+        const userName = document.getElementById('userName');
+        const accountAvatar = document.getElementById('accountAvatar');
+        const accountName = document.getElementById('accountName');
+        const accountEmail = document.getElementById('accountEmail');
+        const tripsPlanned = document.getElementById('tripsPlanned');
+        const destinationsVisited = document.getElementById('destinationsVisited');
+        const travelDays = document.getElementById('travelDays');
+        const photosTaken = document.getElementById('photosTaken');
+        const profileBtn = document.getElementById('profileBtn');
+        const subscriptionBtn = document.getElementById('subscriptionBtn');
+        const settingsBtn = document.getElementById('settingsBtn');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const homeLogo = document.getElementById('homeLogo');
+        const startExploringBtn = document.getElementById('startExploring');
+
+        // ==============================
+        // YOUTUBE PLAYER FUNCTIONS
+        // ==============================
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtube-player', {
+                height: '100%',
+                width: '100%',
+                playerVars: {
+                    'autoplay': 1,
+                    'controls': 1,
+                    'rel': 0,
+                    'showinfo': 0,
+                    'modestbranding': 1,
+                    'fs': 1,
+                    'cc_load_policy': 0,
+                    'iv_load_policy': 3,
+                    'autohide': 1
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            console.log('YouTube Player Ready');
+            event.target.setVolume(70);
+            budgetLevel.style.width = '70%';
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.PLAYING) {
+                isPlaying = true;
+                updateProgressBar();
+                if (currentUser) {
+                    currentUser.destinationsVisited++;
+                    updateUserStats();
+                }
+            } else if (event.data === YT.PlayerState.PAUSED) {
+                isPlaying = false;
+            } else if (event.data === YT.PlayerState.ENDED) {
+                isPlaying = false;
+            }
+        }
+
+        function playYouTubeVideo(videoId, title, location) {
+            if (!player) {
+                console.error('YouTube player not ready');
+                return;
+            }
+            
+            player.loadVideoById(videoId);
+            videoTitle.textContent = title;
+            videoLocation.textContent = location;
+            youtubeModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeYouTubePlayer() {
+            if (player) {
+                player.pauseVideo();
+            }
+            youtubeModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // ==============================
+        // USER MANAGEMENT FUNCTIONS
+        // ==============================
+        function loginUser() {
+            currentUser = { ...defaultUser };
+            updateUserUI();
+            showNotification('Welcome back, traveler!');
+        }
+
+        function logoutUser() {
+            currentUser = null;
+            updateUserUI();
+            closeAccountModal();
+            showNotification('Logged out successfully');
+        }
+
+        function updateUserUI() {
+            if (currentUser) {
+                userInfo.classList.add('active');
+                signInBtn.style.display = 'none';
+                signUpBtn.style.display = 'none';
+                myAccountBtn.style.display = 'block';
+                
+                userAvatar.textContent = currentUser.avatar;
+                userName.textContent = currentUser.name;
+                
+                accountAvatar.textContent = currentUser.avatar;
+                accountName.textContent = currentUser.name;
+                accountEmail.textContent = currentUser.email;
+                updateUserStats();
+            } else {
+                userInfo.classList.remove('active');
+                signInBtn.style.display = 'block';
+                signUpBtn.style.display = 'block';
+                myAccountBtn.style.display = 'none';
+            }
+        }
+
+        function updateUserStats() {
+            if (currentUser) {
+                tripsPlanned.textContent = currentUser.tripsPlanned;
+                destinationsVisited.textContent = currentUser.destinationsVisited;
+                travelDays.textContent = currentUser.travelDays;
+                photosTaken.textContent = currentUser.photosTaken;
+            }
+        }
+
+        function toggleAccountModal() {
+            accountModal.classList.toggle('active');
+        }
+
+        function closeAccountModal() {
+            accountModal.classList.remove('active');
+        }
+
+        // ==============================
+        // DESTINATION CONTROL FUNCTIONS
+        // ==============================
+        function playDestinationVideo() {
+            if (currentDestination && currentDestination.youtubeId) {
+                playYouTubeVideo(currentDestination.youtubeId, currentDestination.name, currentDestination.province);
+                updatePlannerInfo(currentDestination);
+            }
+        }
+
+        function updatePlannerInfo(destination) {
+            document.getElementById('currentDestination').textContent = destination.name;
+            document.getElementById('currentProvince').textContent = destination.province + ', Philippines';
+            document.getElementById('currentDestinationImage').src = destination.image;
+        }
+
+        function nextDestination() {
+            currentDestinationIndex = (currentDestinationIndex + 1) % currentDestinationList.length;
+            currentDestination = currentDestinationList[currentDestinationIndex];
+            updatePlannerInfo(currentDestination);
+        }
+
+        function prevDestination() {
+            currentDestinationIndex = (currentDestinationIndex - 1 + currentDestinationList.length) % currentDestinationList.length;
+            currentDestination = currentDestinationList[currentDestinationIndex];
+            updatePlannerInfo(currentDestination);
+        }
+
+        function planTrip() {
+            if (currentDestination) {
+                if (currentUser) {
+                    currentUser.tripsPlanned++;
+                    updateUserStats();
+                }
+                showNotification(`Added ${currentDestination.name} to your trip plan!`);
+            }
+        }
+
+        function shareTrip() {
+            if (currentDestination) {
+                const shareText = `Check out ${currentDestination.name} in ${currentDestination.province}, Philippines! 🏝️✈️`;
+                if (navigator.share) {
+                    navigator.share({
+                        title: 'TravelVibes PH',
+                        text: shareText,
+                        url: window.location.href
+                    });
+                } else {
+                    navigator.clipboard.writeText(shareText);
+                    showNotification('Trip link copied to clipboard!');
+                }
+            }
+        }
+
+        function saveTrip() {
+            if (currentDestination) {
+                showNotification(`Saved ${currentDestination.name} to your favorites! 💖`);
+            }
+        }
+
+        function updateProgressBar() {
+            if (!player || !isPlaying) return;
+            
+            const duration = player.getDuration();
+            const currentTime = player.getCurrentTime();
+            const progressPercent = (currentTime / duration) * 100;
+            
+            progress.style.width = `${progressPercent}%`;
+            
+            requestAnimationFrame(updateProgressBar);
+        }
+
+        function setBudget(event) {
+            const budgetSliderWidth = budgetSlider.clientWidth;
+            const clickPosition = event.offsetX;
+            const budgetPercent = (clickPosition / budgetSliderWidth);
+            const budget = Math.round(budgetPercent * 100);
+            
+            budgetLevel.style.width = `${budget}%`;
+            showNotification(`Budget set to ₱${budget * 1000}`);
+        }
+
+        // ==============================
+        // SECTION SWITCHING FUNCTIONS
+        // ==============================
+        function switchSection(sectionId) {
+            contentSections.forEach(section => section.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.dataset.section === sectionId) link.classList.add('active');
+            });
+            
+            currentSection = sectionId;
+            
+            // Special handling for provinces section
+            if (sectionId === 'destinations' && currentProvince) {
+                showProvinceDetails(currentProvince);
+            } else {
+                loadSectionContent(sectionId, currentCategory);
+            }
+        }
+
+        function filterByCategory(category) {
+            currentCategory = category;
+            categoryButtons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.category === category) btn.classList.add('active');
+            });
+            loadSectionContent(currentSection, category);
+        }
+
+        function loadSectionContent(section, category) {
+            switch(section) {
+                case 'home':
+                    populateDestinations(filterDestinations(popularDestinations, category), 'popularDestinationsGrid');
+                    populateDestinations(filterDestinations(hiddenGems, category), 'hiddenGemsGrid');
+                    populateDestinations(filterDestinations(mustVisitSpots, category), 'mustVisitGrid');
+                    break;
+                case 'destinations':
+                    populateDestinations(filterDestinations(allDestinations, category), 'allDestinationsGrid');
+                    currentDestinationList = filterDestinations(allDestinations, category);
+                    break;
+                case 'packages':
+                    populatePackages(filterPackages(travelPackages, category), 'packagesGrid');
+                    break;
+                case 'guides':
+                    populateGuides('topGuides', topGuides);
+                    populateGuides('cityGuides', cityGuides);
+                    populateGuides('islandGuides', islandGuides);
+                    break;
+                case 'tips':
+                    populateTips(filterTips(travelTips, category), 'tipsGrid');
+                    break;
+            }
+        }
+
+        // ==============================
+        // PROVINCE FUNCTIONS
+        // ==============================
+        function showProvinceDetails(province) {
+            const destinationsGrid = document.getElementById('allDestinationsGrid');
+            const provinceDetails = document.getElementById('provinceDetails');
+            
+            destinationsGrid.style.display = 'none';
+            provinceDetails.style.display = 'block';
+            currentProvince = province;
+            
+            provinceDetails.innerHTML = `
+                <button class="back-to-destinations" onclick="backToDestinations()" style="background: #6c63ff; color: white; border: none; padding: 10px 20px; border-radius: 20px; margin-bottom: 20px; cursor: pointer;">
+                    <i class="fas fa-arrow-left"></i> Back to Destinations
+                </button>
+                <div class="province-header">
+                    <div class="province-image">
+                        <img src="${province.image}" alt="${province.name}">
+                    </div>
+                    <div class="province-details">
+                        <h2>${province.name}</h2>
+                        <p>${province.description}</p>
+                        <div class="province-stats">
+                            <div class="stat">
+                                <div class="stat-value">${province.destinations}</div>
+                                <div class="stat-label">Destinations</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">${province.tourists}</div>
+                                <div class="stat-label">Tourists/Year</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">${province.bestTime}</div>
+                                <div class="stat-label">Best Time</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">${province.region}</div>
+                                <div class="stat-label">Region</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="province-highlights">
+                    <h3 class="section-title"><i class="fas fa-star"></i> Top Highlights</h3>
+                    <div class="destination-grid" id="provinceHighlightsGrid"></div>
+                </div>
+            `;
+            
+            // Populate province highlights
+            const provinceHighlightsGrid = document.getElementById('provinceHighlightsGrid');
+            provinceHighlightsGrid.innerHTML = '';
+            
+            province.highlights.forEach((highlight, index) => {
+                const destinationCard = document.createElement('div');
+                destinationCard.className = 'destination-card';
+                
+                destinationCard.innerHTML = `
+                    <div class="destination-image">
+                        <img src="${province.image}" alt="${highlight.name}">
+                        <div class="badge ${highlight.type}">${highlight.type.toUpperCase()}</div>
+                    </div>
+                    <div class="play-icon">
+                        <i class="fas fa-play"></i>
+                    </div>
+                    <div class="destination-info">
+                        <h3>${highlight.name}</h3>
+                        <p>${province.name}</p>
+                        <div class="destination-stats">
+                            <span><i class="fas fa-map-marker-alt"></i> ${province.region}</span>
+                            <span><i class="fas fa-compass"></i> ${highlight.type}</span>
+                        </div>
+                    </div>
+                `;
+                
+                destinationCard.addEventListener('click', function() {
+                    currentDestination = {
+                        name: highlight.name,
+                        province: province.name,
+                        image: province.image,
+                        youtubeId: highlight.youtubeId
+                    };
+                    playDestinationVideo();
+                    
+                    document.querySelectorAll('.destination-card').forEach(card => card.classList.remove('active'));
+                    this.classList.add('active');
+                });
+                
+                provinceHighlightsGrid.appendChild(destinationCard);
+            });
+        }
+
+        function backToDestinations() {
+            const destinationsGrid = document.getElementById('allDestinationsGrid');
+            const provinceDetails = document.getElementById('provinceDetails');
+            
+            destinationsGrid.style.display = 'grid';
+            provinceDetails.style.display = 'none';
+            currentProvince = null;
+        }
+
+        // ==============================
+        // GUIDES FUNCTIONS
+        // ==============================
+        function populateGuides(containerId, guidesData) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            
+            guidesData.forEach(item => {
+                const guideItem = document.createElement('div');
+                guideItem.className = 'guide-item';
+                
+                guideItem.innerHTML = `
+                    <div class="guide-rank">${item.rank}</div>
+                    <div class="guide-image">
+                        <img src="https://i.ytimg.com/vi/${item.youtubeId}/hqdefault.jpg" alt="${item.name}">
+                    </div>
+                    <div class="guide-info">
+                        <h4>${item.name}</h4>
+                        <p>By ${item.author}</p>
+                    </div>
+                    <div class="guide-stats">
+                        <div class="guide-rating">
+                            <i class="fas fa-star"></i> ${item.rating}
+                        </div>
+                        <button class="guide-play-btn" data-video='${JSON.stringify(item)}'>
+                            <i class="fas fa-play"></i>
+                        </button>
+                    </div>
+                `;
+                
+                container.appendChild(guideItem);
+            });
+            
+            // Add event listeners to guide play buttons
+            container.querySelectorAll('.guide-play-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const videoData = JSON.parse(this.dataset.video);
+                    playYouTubeVideo(videoData.youtubeId, videoData.name, "Travel Guide");
+                });
+            });
+        }
+
+        // ==============================
+        // HELPER FUNCTIONS
+        // ==============================
+        function filterDestinations(destinations, category) {
+            return category === 'all' ? destinations : destinations.filter(dest => dest.type === category);
+        }
+
+        function filterPackages(packages, category) {
+            return category === 'all' ? packages : packages.filter(pkg => pkg.type === category);
+        }
+
+        function filterTips(tips, category) {
+            return category === 'all' ? tips : tips.filter(tip => tip.category === category);
+        }
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.position = 'fixed';
+            notification.style.top = '20px';
+            notification.style.right = '20px';
+            notification.style.backgroundColor = '#6c63ff';
+            notification.style.color = 'white';
+            notification.style.padding = '15px 20px';
+            notification.style.borderRadius = '10px';
+            notification.style.boxShadow = '0 5px 15px rgba(0,0,0,0.3)';
+            notification.style.zIndex = '4000';
+            notification.style.display = 'flex';
+            notification.style.alignItems = 'center';
+            notification.style.gap = '10px';
+            notification.innerHTML = `
+                <i class="fas fa-plane"></i>
+                <span>${message}</span>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transform = 'translateX(100px)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // ==============================
+        // POPULATE FUNCTIONS
+        // ==============================
+        function populateDestinations(destinations, containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            
+            container.innerHTML = '';
+            destinations.forEach(destination => {
+                const destinationCard = createDestinationCard(destination);
+                container.appendChild(destinationCard);
+            });
+        }
+
+        function createDestinationCard(destination) {
+            const destinationCard = document.createElement('div');
+            destinationCard.className = 'destination-card';
+            
+            let badgeHTML = '';
+            if (destination.badge) {
+                const badgeClass = destination.badge === 'popular' ? 'popular' :
+                                 destination.badge === 'hidden-gem' ? 'hidden-gem' :
+                                 destination.badge === 'must-visit' ? 'must-visit' : '';
+                badgeHTML = `<div class="badge ${badgeClass}">${destination.badge.toUpperCase()}</div>`;
+            }
+            
+            destinationCard.innerHTML = `
+                <div class="destination-image">
+                    <img src="${destination.image}" alt="${destination.name}">
+                    ${badgeHTML}
+                </div>
+                <div class="play-icon">
+                    <i class="fas fa-play"></i>
+                </div>
+                <div class="destination-info">
+                    <h3>${destination.name}</h3>
+                    <p>${destination.province}</p>
+                    <div class="destination-stats">
+                        <span><i class="fas fa-star"></i> ${destination.rating}</span>
+                        <span><i class="fas fa-users"></i> ${destination.visitors}</span>
+                    </div>
+                </div>
+            `;
+            
+            destinationCard.addEventListener('click', function() {
+                currentDestination = destination;
+                currentDestinationIndex = currentDestinationList.findIndex(dest => dest.id === destination.id);
+                currentDestinationList = allDestinations;
+                updatePlannerInfo(destination);
+                
+                document.querySelectorAll('.destination-card').forEach(card => card.classList.remove('active'));
+                this.classList.add('active');
+            });
+            
+            return destinationCard;
+        }
+
+        function populatePackages(packages, containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            container.innerHTML = '';
+            
+            packages.forEach(pkg => {
+                const packageCard = document.createElement('div');
+                packageCard.className = 'package-card';
+                packageCard.innerHTML = `
+                    <div class="package-image">
+                        <img src="${pkg.image}" alt="${pkg.name}">
+                    </div>
+                    <div class="package-content">
+                        <h3>${pkg.name}</h3>
+                        <p>${pkg.duration} • ${pkg.destinations.join(", ")}</p>
+                        <div class="package-price">${pkg.price}</div>
+                        <div class="package-features">
+                            ${pkg.features.map(feature => `<span class="package-feature">${feature}</span>`).join('')}
+                        </div>
+                        <button class="cta-button" style="padding: 8px 20px; font-size: 14px; width: 100%;">Book Now</button>
+                    </div>
+                `;
+                packageCard.querySelector('.cta-button').addEventListener('click', () => {
+                    showNotification(`Booking ${pkg.name} for ${pkg.price}`);
+                    if (currentUser) {
+                        currentUser.tripsPlanned++;
+                        updateUserStats();
+                    }
+                });
+                container.appendChild(packageCard);
+            });
+        }
+
+        function populateTips(tips, containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            container.innerHTML = '';
+            
+            tips.forEach(tip => {
+                const tipCard = document.createElement('div');
+                tipCard.className = 'tip-card';
+                tipCard.innerHTML = `
+                    <div class="tip-icon">
+                        <i class="${tip.icon}"></i>
+                    </div>
+                    <h4>${tip.title}</h4>
+                    <p>${tip.content}</p>
+                `;
+                tipCard.addEventListener('click', () => {
+                    showNotification(`Tip: ${tip.title}`);
+                });
+                container.appendChild(tipCard);
+            });
+        }
+
+        // ==============================
+        // EVENT LISTENERS
+        // ==============================
+        document.addEventListener('DOMContentLoaded', function() {
+            // Auto login for demo
+            setTimeout(() => loginUser(), 1000);
+            
+            // Load initial content
+            loadSectionContent('home', 'all');
+            
+            // Navigation
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    switchSection(link.dataset.section);
+                });
+            });
+            
+            // Home logo click
+            homeLogo.addEventListener('click', () => switchSection('home'));
+            
+            // Categories
+            categoryButtons.forEach(btn => {
+                btn.addEventListener('click', () => filterByCategory(btn.dataset.category));
+            });
+            
+            // Planner Controls
+            planTripBtn.addEventListener('click', planTrip);
+            prevDestinationBtn.addEventListener('click', prevDestination);
+            nextDestinationBtn.addEventListener('click', nextDestination);
+            shareTripBtn.addEventListener('click', shareTrip);
+            saveTripBtn.addEventListener('click', saveTrip);
+            watchVideoBtn.addEventListener('click', playDestinationVideo);
+            
+            // Budget Slider
+            budgetSlider.addEventListener('click', setBudget);
+            
+            // YouTube Modal
+            closeYoutube.addEventListener('click', closeYouTubePlayer);
+            youtubeModal.addEventListener('click', (e) => {
+                if (e.target === youtubeModal) closeYouTubePlayer();
+            });
+            
+            // Start Exploring Button
+            startExploringBtn.addEventListener('click', () => {
+                const randomDest = allDestinations[Math.floor(Math.random() * allDestinations.length)];
+                currentDestination = randomDest;
+                currentDestinationIndex = currentDestinationList.findIndex(dest => dest.id === randomDest.id);
+                updatePlannerInfo(randomDest);
+                showNotification(`Let's explore ${randomDest.name}! 🗺️`);
+            });
+            
+            // User Account
+            myAccountBtn.addEventListener('click', toggleAccountModal);
+            logoutBtn.addEventListener('click', logoutUser);
+            profileBtn.addEventListener('click', () => {
+                alert('Travel profile would open here');
+                closeAccountModal();
+            });
+            subscriptionBtn.addEventListener('click', () => {
+                alert('Premium travel features would show here');
+                closeAccountModal();
+            });
+            settingsBtn.addEventListener('click', () => {
+                alert('Travel settings would open here');
+                closeAccountModal();
+            });
+            
+            // Close account modal when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!accountModal.contains(e.target) && e.target !== myAccountBtn) {
+                    closeAccountModal();
+                }
+            });
+            
+            // Sign In Modal
+            signInBtn.addEventListener('click', () => signinModal.classList.add('active'));
+            signUpBtn.addEventListener('click', () => {
+                signinModal.classList.add('active');
+                alert('Sign Up form would be similar to Sign In.');
+            });
+            closeModal.addEventListener('click', () => signinModal.classList.remove('active'));
+            signinModal.addEventListener('click', (e) => {
+                if (e.target === signinModal) signinModal.classList.remove('active');
+            });
+            
+            // Sign In Form
+            signinForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                
+                if (email && password) {
+                    loginUser();
+                    signinModal.classList.remove('active');
+                    signinForm.reset();
+                }
+            });
+            
+            // Escape key to close modals
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    if (youtubeModal.classList.contains('active')) closeYouTubePlayer();
+                    if (signinModal.classList.contains('active')) signinModal.classList.remove('active');
+                    closeAccountModal();
+                }
+            });
+            
+            // Initialize current destination list
+            currentDestinationList = [...popularDestinations];
+            currentDestinationIndex = 0;
+            updatePlannerInfo(currentDestination);
+        });
+
+        // Make backToDestinations available globally
+        window.backToDestinations = backToDestinations;
+    </script>
+</body>
+</html>
